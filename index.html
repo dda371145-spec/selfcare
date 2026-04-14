@@ -11,10 +11,23 @@
 <body class="light-mode">
     <div id="login-screen" class="container">
         <h1>ZenGarden</h1>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="handleLogin()">Enter Garden</button>
-        <p id="login-error" style="color: red;"></p>
+        
+        <div id="login-form">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="handleLogin()">Enter Garden</button>
+            <p>New here? <a href="#" onclick="toggleAuth(true)">Register</a></p>
+        </div>
+
+        <div id="register-form" style="display: none;">
+            <h3>Create Account</h3>
+            <input type="text" id="reg-username" placeholder="Choose Username">
+            <input type="password" id="reg-password" placeholder="Choose Password">
+            <button onclick="handleRegister()" style="background-color: var(--accent-pink);">Sign Up</button>
+            <p>Already a gardener? <a href="#" onclick="toggleAuth(false)">Login</a></p>
+        </div>
+        
+        <p id="auth-error" style="color: red;"></p>
     </div>
 
     <div id="app-screen" class="container" style="display: none;">
