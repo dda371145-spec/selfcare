@@ -5,6 +5,7 @@
     --accent: #d4e9d4;
     --soft-green: #a8c4a8;
     --accent-pink: #f4a8b8;
+    --error: #d66;
 }
 
 .dark-mode {
@@ -21,6 +22,7 @@ body {
     font-family: 'Segoe UI', system-ui, sans-serif;
     transition: background-color 0.4s, color 0.4s;
     line-height: 1.5;
+    margin: 0;
 }
 
 .container {
@@ -34,10 +36,28 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2, h3 {
+/* Authentication Forms */
+input[type="text"], 
+input[type="password"], 
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 1em;
+    box-sizing: border-box;
+    background: var(--cont);
     color: var(--text);
 }
 
+#auth-error {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+/* Buttons */
 button {
     background: var(--accent);
     border: none;
@@ -55,155 +75,133 @@ button:hover {
     filter: brightness(1.1);
 }
 
+/* Header & Theme */
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#theme-toggle {
+    font-size: 0.8em;
+    padding: 8px 12px;
+}
+
+/* Garden Display */
+#garden-display {
+    background: rgba(0, 0, 0, 0.04);
+    padding: 18px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+#plant-box {
+    font-size: 2rem;
+    line-height: 1.6;
+    min-height: 60px;
+    word-wrap: break-word;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+    background: rgba(0,0,0,0.03);
+    padding: 10px;
+    border-radius: 15px;
+}
+
+nav button {
+    flex: 1;
+    margin: 0 5px;
+}
+
+/* Mood & Suggestions */
 .mood-options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 12px;
-    margin: 25px 0;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px 0;
 }
 
 .mood-options button {
-    padding: 18px 10px;
-    font-size: 1.05em;
-    border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 15px 5px;
+    font-size: 1.2em;
 }
 
-.mood-options button:active {
-    transform: scale(0.95);
-}
-
-/* Todo Area */
 #todo-area {
     margin-top: 20px;
     padding: 18px;
     border-radius: 16px;
     background: var(--cont);
-    border-left: 5px solid var(--accent);
     text-align: left;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
 }
 
-#todo-area ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+/* Journaling */
+textarea {
+    height: 120px;
+    resize: none;
 }
 
-#todo-area li {
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-#todo-area li:last-child {
-    border-bottom: none;
-}
-
-.small-btn {
-    padding: 8px 14px !important;
-    font-size: 0.95em;
-    border-radius: 30px !important;
-    margin: 4px 0;
-}
-
-/* Streak Counter */
-#streak-counter {
-    background: #e8f5e8;
-    color: #2e7d32;
-    padding: 14px;
-    border-radius: 14px;
-    margin: 18px 0;
-    font-size: 1.1em;
-    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.15);
-}
-
-.dark-mode #streak-counter {
-    background: #1e3a2f;
-    color: #4ade80;
-}
-
-/* Mood History */
-#mood-history {
+#past-entries {
+    max-height: 300px;
+    overflow-y: auto;
     margin-top: 20px;
-    padding: 14px;
-    background: rgba(0, 0, 0, 0.04);
-    border-radius: 12px;
-    font-size: 0.95em;
-    text-align: left;
 }
 
-.dark-mode #mood-history {
-    background: rgba(255, 255, 255, 0.08);
+/* Breathing Overlay Animation Refinements */
+#breathing-overlay h2 { color: white; }
+#phase-text { font-weight: 300; letter-spacing: 1px; }
+
+/* Focus Mode */
+.focus-active {
+    background-color: var(--soft-green) !important;
+    animation: pulse 2s infinite;
 }
 
-/* Garden */
-#garden-display {
-    background: rgba(0, 0, 0, 0.06);
-    padding: 14px;
-    border-radius: 16px;
-    margin-bottom: 20px;
-    min-height: 70px;
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
 }
 
-#plant-box {
-    font-size: 2.2rem;
-    line-height: 1.4;
-    min-height: 50px;
-    word-break: break-all;
-}
-
-/* Other sections */
-.input-group {
-    margin: 15px 0;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 1em;
-}
-
-canvas {
-    margin: 20px auto;
-    max-width: 100%;
-    border-radius: 16px;
-    background: var(--cont);
-}
-
-/* Buttons */
+/* Utility */
 .secondary-btn {
     background: #e0e0e0;
     color: #555;
-    font-size: 0.9rem;
+    width: 100%;
 }
 
 .logout-btn {
     background: none;
-    border: 2px solid #d66;
-    color: #d66;
+    border: 2px solid var(--error);
+    color: var(--error);
     width: 100%;
-    padding: 12px;
-    margin-top: 30px;
-    font-weight: 600;
+    margin-top: 25px;
 }
 
 .logout-btn:hover {
-    background: #d66;
+    background: var(--error);
     color: white;
 }
 
-/* Dark mode improvements */
+/* Dark Mode Overrides */
 .dark-mode .container {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode input, .dark-mode textarea {
+    background: #2c3e50;
+    border-color: #444;
 }
 
 .dark-mode button {
     color: white;
-}
-
-.dark-mode #todo-area {
-    background: #2c3e50;
 }
