@@ -18,6 +18,8 @@
     </div>
 
     <div id="app-screen" class="container" style="display: none;">
+        <h2 id="welcome-msg">Welcome Back!</h2>
+        
         <nav>
             <button onclick="showSection('mood')">Mood</button>
             <button onclick="showSection('journal')">Journal</button>
@@ -31,8 +33,8 @@
                 <button onclick="setMood('Stressed')">😫 Stressed</button>
                 <button onclick="setMood('Calm')">🌿 Calm</button>
             </div>
-            <div id="todo-area" style="display:none;">
-                <h3>Action Items for Stress:</h3>
+            <div id="todo-area" style="display:none; margin-top: 20px; text-align: left; background: #f9f9f9; padding: 10px; border-radius: 10px;">
+                <h3 style="font-size: 1rem;">Suggestions:</h3>
                 <ul id="todo-list"></ul>
             </div>
         </section>
@@ -51,10 +53,11 @@
                 <label>Social Hours:</label> <input type="number" id="social-hrs">
                 <button onclick="updateChart()">Update</button>
             </div>
-            <div id="chart-display"></div>
             <hr>
             <button id="focus-btn" onclick="toggleFocusMode()">Enable Deep Focus Mode</button>
         </section>
+        
+        <button onclick="location.reload()" style="margin-top:20px; background:#eee; font-size: 0.8rem;">Logout</button>
     </div>
 
     <script src="script.js"></script>
