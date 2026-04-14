@@ -1,21 +1,23 @@
-const CACHE_NAME = 'zen-cache-v1';
+const CACHE_NAME = 'zen-cache-v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/sketch.js',
-  '/style.css',
-  '/p5.js',
-  '/p5.sound.min.js',
-  '/song.mp3',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
+  './',
+  './index.html',
+  './script.js',
+  './style.css',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
+
+// Add p5 files only if you are actually using them in this project version
+// './p5.js',
+// './p5.sound.min.js',
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
+        console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
   );
@@ -25,11 +27,8 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
+        // Return cached version, or fetch from network
+        return response || fetch(event.request);
       })
   );
 });
@@ -40,7 +39,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+          if (!cacheWhitelist.includes(cacheName)) {
             return caches.delete(cacheName);
           }
         })
