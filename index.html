@@ -7,18 +7,59 @@
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Quick inline improvements for new features */
+        .mood-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .mood-options button {
+            padding: 15px 10px;
+            font-size: 1.1em;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mood-options button:hover {
+            transform: scale(1.05);
+        }
+        #todo-area {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.7);
+        }
+        #mood-history {
+            margin-top: 25px;
+            padding: 12px;
+            background: #f8f9f8;
+            border-radius: 10px;
+            font-size: 0.95em;
+        }
+        #streak-counter {
+            background: #e6f4e6;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body class="light-mode">
     <div id="login-screen" class="container">
-        <h1>ZenGarden</h1>
-        
+        <h1>🌱 ZenGarden</h1>
+       
         <div id="login-form">
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
             <button onclick="handleLogin()">Enter Garden</button>
             <p>New here? <a href="#" onclick="toggleAuth(true)">Register</a></p>
         </div>
-
+        
         <div id="register-form" style="display: none;">
             <h3>Create Account</h3>
             <input type="text" id="reg-username" placeholder="Choose Username">
@@ -26,62 +67,81 @@
             <button onclick="handleRegister()" style="background-color: var(--accent-pink);">Sign Up</button>
             <p>Already a gardener? <a href="#" onclick="toggleAuth(false)">Login</a></p>
         </div>
-        
+       
         <p id="auth-error" style="color: red;"></p>
     </div>
 
     <div id="app-screen" class="container" style="display: none;">
         <div class="header-actions">
             <button id="theme-toggle" onclick="toggleTheme()">🌙 Sunset Mode</button>
-            <h2 id="welcome-msg">Hi, Gardener!</h2>
+            <h2 id="welcome-msg">Hi, Gardener! 🌿</h2>
         </div>
 
         <div id="garden-display">
             <p>Your Garden Growth:</p>
             <div id="plant-box"></div>
         </div>
-        
+       
         <nav>
-            <button onclick="showSection('mood')">Mood</button>
-            <button onclick="showSection('journal')">Journal</button>
-            <button onclick="showSection('balance')">Balance</button>
+            <button onclick="showSection('mood')">🌸 Mood</button>
+            <button onclick="showSection('journal')">📖 Journal</button>
+            <button onclick="showSection('balance')">⚖️ Balance</button>
         </nav>
 
+        <!-- ==================== MOOD SECTION ==================== -->
         <section id="mood-section">
-            <h2>How are you feeling?</h2>
+            <h2>How are you feeling right now?</h2>
+            
             <div class="mood-options">
-                <button onclick="setMood('Happy')">😊 Happy</button>
-                <button onclick="setMood('Stressed')">😫 Stressed</button>
-                <button onclick="setMood('Calm')">🌿 Calm</button>
+                <button onclick="setMood('happy')">😊 Happy</button>
+                <button onclick="setMood('calm')">😌 Calm</button>
+                <button onclick="setMood('energized')">⚡ Energized</button>
+                <button onclick="setMood('stressed')">😟 Stressed</button>
+                <button onclick="setMood('anxious')">😰 Anxious</button>
+                <button onclick="setMood('sad')">😢 Sad</button>
+                <button onclick="setMood('tired')">🥱 Tired</button>
+                <button onclick="setMood('overwhelmed')">😣 Overwhelmed</button>
             </div>
+
             <div id="todo-area" style="display:none;">
-                <h3>Suggestions:</h3>
+                <h3 id="mood-title">Suggestions:</h3>
                 <ul id="todo-list"></ul>
             </div>
+
+            <!-- New Elements from updated script -->
+            <div id="streak-counter" style="display: none;">
+                🔥 <strong id="streak-days">0</strong> day streak! Keep growing!
+            </div>
+            
+            <div id="mood-history"></div>
         </section>
 
+        <!-- ==================== JOURNAL SECTION ==================== -->
         <section id="journal-section" style="display:none;">
             <h2>Reflections</h2>
-            <textarea id="journal-input" placeholder="Write thoughts..."></textarea>
-            <button onclick="saveJournal()">Save & Grow</button>
-            <button onclick="exportJournal()" class="secondary-btn">Export My Week (TXT)</button>
+            <textarea id="journal-input" placeholder="What’s on your mind today..."></textarea>
+            <button onclick="saveJournal()">Save & Grow Plant 🌱</button>
+            <button onclick="exportJournal()" class="secondary-btn">Export Journal (TXT)</button>
             <div id="past-entries"></div>
         </section>
 
+        <!-- ==================== BALANCE SECTION ==================== -->
         <section id="balance-section" style="display:none;">
             <h2>Work-Life Balance</h2>
             <div class="input-group">
-                <input type="number" id="work-hrs" placeholder="Work Hours">
-                <input type="number" id="social-hrs" placeholder="Social Hours">
+                <input type="number" id="work-hrs" placeholder="Work Hours Today">
+                <input type="number" id="social-hrs" placeholder="Social / Rest Hours">
                 <button onclick="updateChart()">Update Chart</button>
             </div>
             <canvas id="balanceChart" width="400" height="400"></canvas>
+            
             <hr>
             <button id="focus-btn" onclick="toggleFocusMode()">Deep Focus Mode</button>
         </section>
 
         <button onclick="location.reload()" class="logout-btn">Logout</button>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
